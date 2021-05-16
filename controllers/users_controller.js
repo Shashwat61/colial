@@ -34,6 +34,11 @@ module.exports.signIn=function(req,res){
    })
 }
 
+module.exports.signOut=function(req,res){
+    res.cookie('user_id',"")
+     return res.redirect('/users/sign-in')
+}
+
 //get the sign up data
 
 module.exports.create=function(req,res){
