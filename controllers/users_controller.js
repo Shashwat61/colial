@@ -33,9 +33,9 @@ module.exports.signIn=function(req,res){
       title:"Colial | Sign In"
    })
 }
-
+//sign out functionality
 module.exports.signOut=function(req,res){
-    res.cookie('user_id',"")
+    res.clearCookie('user_id');
      return res.redirect('/users/sign-in')
 }
 
