@@ -12,7 +12,16 @@ module.exports.home=function(req,res){
     // }
     // )
    //popualate the user of each
-    Post.find({}).populate('user').exec(function(err,post){
+    Post.find({}).populate('user')
+    .populate({
+        path:'comments',
+        populate:{
+            path:'user'
+        }
+
+    })
+    
+    .exec(function(err,post){
         console.log("populating")
         return res.render('home',{
             title:" Colial | Home ",
