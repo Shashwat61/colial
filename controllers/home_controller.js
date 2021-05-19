@@ -1,6 +1,8 @@
 const Post=require('../models/posts')
 const User=require('../models/user')
-module.exports.home=function(req,res){
+
+
+module.exports.home=async function(req,res){
     
     // Post.find({},function(err,post){
 
@@ -11,8 +13,12 @@ module.exports.home=function(req,res){
     //     })
     // }
     // )
+
    //popualate the user of each
-    Post.find({}).populate('user')
+   try{
+
+   
+    let post=await Post.find({}).populate('user')
     .populate({
         path:'comments',
         populate:{
@@ -21,18 +27,19 @@ module.exports.home=function(req,res){
 
     })
     
-    .exec(function(err,post){
-         User.find({},function(err,users){
+    let users=await User.find({});
 
-             console.log("populating")
-             return res.render('home',{
+    return res.render('home',{
                  title:" Colial | Home ",
-                 post:post,
-                 all_users:users
+                post:post,
+                all_users:users
 
-                })
-        })
-    })
+               });
+} catch(err){
+    console.log('error',err);
+    return;
+
+}
 }
 
 //module.exports.actionName=function(req,res){}
